@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+        <!-- Services-->
+        <section class="page-section" id="services">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">We are..</h2>
+                </div>
+                <div class="row text-center">
+                    {% for h1_item in home1 %}
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <!-- <i class="fas fa-circle fa-stack-2x text-primary"></i> -->
+                            <img class="img-fluid" src="{% url 'serve_image' 'Home1' h1_item.id %}" alt="{{ h1_item.image.url }}">
+                        </span>
+                        <h4 class="my-3">{{ h1_item.title }}</h4>
+                        <p class="text-muted">{{ h1_item.content }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="text-center">
+                </div>
+            </div>
+        </section>
+        <!-- Events Grid-->
+        <section class="page-section bg-light" id="events">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Events</h2>
+                    <h3 class="section-subheading text-muted"></h3>
+                </div>
+                <div class="row">
+                    {% for event in events %}
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                    <!-- Event item -->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal{{ event.id }}">
+                            <!-- <div class="portfolio-hover"> -->
+                                <!-- <div class="portfolio-hover-content"> -->
+                                {% if event.image %}
+                                    <img class="img-fluid" src="{% url 'serve_image' 'Event' event.id %}" alt="{{ event.title }}" />
+                                {% else %}
+                                    <img class="img-fluid" src="{% static 'assets/img/portfolio/placeholder.jpg' %}" alt="Placeholder" />
+                                {% endif %}
+                                <!-- </div>
+                            </div> -->
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">{{ event.title }}</div>
+                                <div class="portfolio-caption-subheading text-muted">{{ event.category }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- About-->
+        <section class="page-section" id="about">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">About ESSC</h2>
+                </div>
+                <ul class="timeline">
+                    {% for about_item in about %}
+                    <li{% if forloop.counter|divisibleby:2 %} class="timeline-inverted"{% endif %}>
+                        <div class="timeline-image">
+                            <img class="rounded-circle img-fluid" src="{% url 'serve_image' 'About' about_item.id %}" alt="{{ about_item.title }}" />
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>{{ about_item.about_date|date:"F Y" }}</h4>
+                                <h4 class="subheading">{{ about_item.title }}</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-muted">{{ about_item.content }}</p>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                    <li{% if about_items|length|divisibleby:2 %} class="timeline-inverted"{% endif %}>
+                        <div class="timeline-image">
+                            <h4>
+                                Be Part
+                                <br />
+                                Of Our
+                                <br />
+                                Story!
+                            </h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Team-->
+        <section class="page-section bg-light" id="team">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
+                    <h3 class="section-subheading text-muted">Be our next member.</h3>
+                </div>
+                <div class="row">
+                    {% for team_member in members %}
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <img class="mx-auto rounded-circle" src="{% url 'serve_image' 'Member' team_member.id %}" alt="{{ team_member.name }}" />
+                            <h4>{{ team_member.name }}</h4>
+                            <p class="text-muted">{{ team_member.position }}</p>
+                            {% if team_member.social1 %}
+                            <a class="btn btn-dark btn-social mx-2" href="{{ team_member.social1 }}" aria-label="{{ team_member.name }} Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            {% endif %}
+                            {% if team_member.social2 %}
+                            <a class="btn btn-dark btn-social mx-2" href="{{ team_member.social2 }}" aria-label="{{ team_member.name }} Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            {% endif %}
+                            {% if team_member.social3 %}
+                            <a class="btn btn-dark btn-social mx-2" href="{{ team_member.social3 }}" aria-label="{{ team_member.name }} LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+       
+        <!-- Contact-->
+        <section class="page-section" id="contact" style="background-image: url('{% url 'serve_image' 'Home2' home2.0.id %}');">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contact Us</h2>
+                    <h3 class="section-subheading text-muted">Contact us​ if you have any questions or concerns!</h3>
+                    <h3 class="section-subheading text-muted">Email:
+                        esscirvine@gmail.com</h3>
+                        <h3 class="section-subheading text-muted">Instagram:
+                            @essc.uci</h3>
+                        <h3 class="section-subheading text-muted">Or use form below.</h3>
+                </div>
+                <form id="contactForm" method="post">
+                    {% csrf_token %}
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input class="form-control" id="name" type="text" placeholder="Your Name *" name="name" required />
+                                <div class="invalid-feedback">A name is required.</div>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="email" type="email" placeholder="Your Email *" name="email" required />
+                                <div class="invalid-feedback">An email is required.</div>
+                                <div class="invalid-feedback">Email is not valid.</div>
+                            </div>
+                            <div class="form-group mb-md-0">
+                                <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" name="phone" required />
+                                <div class="invalid-feedback">A phone number is required.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <textarea class="form-control" id="message" placeholder="Your Message *" name="message" required></textarea>
+                                <div class="invalid-feedback">A message is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-xl text-uppercase" type="submit">Send Message</button>
+                    </div>
+                    <div class="d-none" id="submitSuccessMessage">
+                        <div class="text-center text-white mb-3">
+                            <div class="fw-bolder">Form submission successful!</div>
+                        </div>
+                    </div>
+                    <div class="d-none" id="submitErrorMessage">
+                        <div class="text-center text-danger mb-3">Error sending message!</div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Event Modals-->
+        {% for event in events %}
+        <div class="portfolio-modal modal fade" id="portfolioModal{{ event.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="{% static 'assets/img/close-icon.svg'%}" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details -->
+                                    <h2 class="text-uppercase">{{ event.title }}</h2>
+                                    <p class="item-intro text-muted">{{ event.category }}</p>
+                                    {% if event.image %}
+                                        <img class="img-fluid d-block mx-auto" src="{% url 'serve_image' 'Event' event.id %}" alt="{{ event.title }}" />
+                                    {% else %}
+                                        <img class="img-fluid d-block mx-auto" src="{% static 'assets/img/portfolio/placeholder.jpg' %}" alt="Placeholder" />
+                                    {% endif %}
+                                    <p>{{ event.content }}</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>posted:</strong>
+                                            {{ event.date_posted }}
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        {% block javascripts %}
+        <script src= "{% static 'js/scripts.js' %}"></script>
+        {% endblock %}
+        <script src= "{% static 'js/scripts.js' %}"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+{% endblock %}

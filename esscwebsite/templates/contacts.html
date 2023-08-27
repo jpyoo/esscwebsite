@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Contacts{% endblock %}
+{% block content %}
+<!-- List of contacts and contents-->
+{% load static %}
+<!-- Contacts Grid-->
+<section class="page-section bg-light" id="events">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Contacts</h2>
+            <h3 class="section-subheading text-muted"></h3>
+        </div>
+        <div class="row">
+            {% for contact in contacts %}
+            <div class="col-lg-4 col-sm-6 mb-4">
+            <!-- Contact item -->
+                <div class="portfolio-item">
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">{{ contact.name }}</div>
+                        <div class="portfolio-caption-subheading text-muted">{{ contact.email }}</div>
+                        <div class="portfolio-caption-subheading text-muted">{{ contact.phone }}</div>
+                        <div class="portfolio-caption-subheading text-muted">{{ contact.message }}</div>
+                        <div class="portfolio-caption-subheading text-muted">{{ contact.date_posted }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% load static %}
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home'%}"><img src="{% url 'serve_image' 'Home2' home2.2.id %}" alt="..." /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link" href="#services">Welcome!</a></li>
+                <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                {% if request.user.is_authenticated and request.user.is_superuser %}
+                <!-- Show "Contact" link only if the user is an admin -->
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">User Contacts</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

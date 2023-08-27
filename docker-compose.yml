@@ -1,0 +1,43 @@
+version: "3.7"
+
+x-service-volumes: &service-volumes
+  - ./:/app/:rw,cached
+
+x-database-variables: &database-variables
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: admin
+  POSTGRES_DB: esscwebsite_db
+
+x-app-variables: &app-variables
+  <<: *database-variables
+  POSTGRES_HOST: postgres
+
+services:
+  website:
+    image: esscwebsite:latest
+    command: python manage.py runserver
+    volumes: *service-volumes
+    environment: *app-variables
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: esscwebsite:latest
+    command: python manage.py migrate
+    volumes: *service-volumes
+    environment: *app-variables
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment: *database-variables
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      
+volumes:
+  postgres_data:

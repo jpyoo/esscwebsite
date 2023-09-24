@@ -11314,3 +11314,12 @@ section#contact form#contactForm :-ms-input-placeholder {
   font-size: 0.9rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+/* Add hover effect to event images */
+.event-image {
+  transition: opacity 0.3s ease-in-out; /* Smooth transition effect on opacity */
+}
+
+.event-image:hover {
+  opacity: 0.3; /* Reduce opacity when hovered */
+}

@@ -2,28 +2,44 @@
 {% block content %}
 {% load static %}
 
-        <!-- Services-->
-        <section class="page-section" id="services">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">We are..</h2>
-                </div>
-                <div class="row text-center">
-                    {% for h1_item in home1 %}
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <!-- <i class="fas fa-circle fa-stack-2x text-primary"></i> -->
-                            <img class="img-fluid" src="{% url 'serve_image' 'Home1' h1_item.id %}" alt="{{ h1_item.image.url }}">
-                        </span>
+        <!-- Services with Slideshow -->
+<section class="page-section" id="services">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">We are..</h2>
+        </div>
+        <div id="servicesCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                {% for h1_item in home1 %}
+                <li data-target="#servicesCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                {% endfor %}
+            </ol>
+            <!-- Slides -->
+            <div class="carousel-inner text-center">
+                {% for h1_item in home1 %}
+                <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                    <!-- <i class="fas fa-circle fa-stack-2x text-primary"></i> -->
+                    <img class="d-block w-100" src="{% url 'serve_image' 'Home1' h1_item.id %}" alt="{{ h1_item.image.url }}">
+                    <div class="carousel-caption d-none d-md-block">    
                         <h4 class="my-3">{{ h1_item.title }}</h4>
-                        <p class="text-muted">{{ h1_item.content }}</p>
+                        <p class="my-4">{{ h1_item.content }}</p>
                     </div>
-                    {% endfor %}
                 </div>
-                <div class="text-center">
-                </div>
+                {% endfor %}
             </div>
-        </section>
+            <!-- Left and Right Controls -->
+            <a class="carousel-control-prev" href="#servicesCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="false"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#servicesCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</section>
         <!-- Events Grid-->
         <section class="page-section bg-light" id="events">
             <div class="container">
@@ -37,15 +53,13 @@
                     <!-- Event item -->
                         <div class="portfolio-item">
                             <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal{{ event.id }}">
-                            <!-- <div class="portfolio-hover"> -->
-                                <!-- <div class="portfolio-hover-content"> -->
-                                {% if event.image %}
-                                    <img class="img-fluid" src="{% url 'serve_image' 'Event' event.id %}" alt="{{ event.title }}" />
-                                {% else %}
-                                    <img class="img-fluid" src="{% static 'assets/img/portfolio/placeholder.jpg' %}" alt="Placeholder" />
-                                {% endif %}
-                                <!-- </div>
-                            </div> -->
+
+                            {% if event.image %}
+                                <img class="img-fluid event-image" src="{% url 'serve_image' 'Event' event.id %}" alt="{{ event.title }}" />
+                            {% else %}
+                                <img class="img-fluid event-image" src="{% static 'assets/img/portfolio/placeholder.jpg' %}" alt="Placeholder" />
+                            {% endif %}
+                            
                             </a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading">{{ event.title }}</div>

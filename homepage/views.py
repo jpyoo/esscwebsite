@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post, Event, Announcement, About, Home1, Home2, Home3, Member
+from .models import Post, Event, Announcement, About, Home1, Home2, Home3, Member, ArchiveBanners
 from django.http import HttpResponse
 from django.apps import apps
 from django.http import Http404
@@ -8,6 +8,7 @@ from django.shortcuts import render
 from .forms import ContactForm
 from .models import Contact  # Import your ContactEntry model
 from django.contrib.auth.decorators import user_passes_test
+from .utils import get_instagram_posts
 
 # Define a function to check if the user is an admin
 def is_admin(user):
@@ -25,7 +26,9 @@ def home(request):
         'home3': Home3.objects.all().order_by('-date_posted')[:3],
         'members': Member.objects.all(),
         'form': ContactForm(),
+        # 'instagram_posts': get_instagram_posts(),
     }
+
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -50,6 +53,12 @@ def contact(request):
     }
     return render(request, 'contacts.html', context)
 
+def archive(request):
+    context = {
+        'members': Member.objects.all(),
+        'home2': ArchiveBanners.objects.all().order_by('-date_posted')[:3],
+    }
+    return render(request, 'archive.html', context)
 
 def serve_image(request, model_name, image_id):
     model = apps.get_model('homepage', model_name)

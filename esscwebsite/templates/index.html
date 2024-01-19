@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
+<script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '713894050691732',
+        xfbml      : true,
+        version    : 'v18.0'
+      });
+      FB.AppEvents.logPageView();
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+</script>
 
         <!-- Services with Slideshow -->
 <section class="page-section" id="services">
@@ -72,44 +90,6 @@
             </div>
         </section>
 
-        <!-- About-->
-        <section class="page-section" id="about">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">About ESSC</h2>
-                </div>
-                <ul class="timeline">
-                    {% for about_item in about %}
-                    <li{% if forloop.counter|divisibleby:2 %} class="timeline-inverted"{% endif %}>
-                        <div class="timeline-image">
-                            <img class="rounded-circle img-fluid" src="{% url 'serve_image' 'About' about_item.id %}" alt="{{ about_item.title }}" />
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4>{{ about_item.about_date|date:"F Y" }}</h4>
-                                <h4 class="subheading">{{ about_item.title }}</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p class="text-muted">{{ about_item.content }}</p>
-                            </div>
-                        </div>
-                    </li>
-                    {% endfor %}
-                    <li{% if about_items|length|divisibleby:2 %} class="timeline-inverted"{% endif %}>
-                        <div class="timeline-image">
-                            <h4>
-                                Be Part
-                                <br />
-                                Of Our
-                                <br />
-                                Story!
-                            </h4>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
         <!-- Team-->
         <section class="page-section bg-light" id="team">
             <div class="container">
@@ -119,29 +99,31 @@
                 </div>
                 <div class="row">
                     {% for team_member in members %}
+                    {% if not team_member.archive %}
                     <div class="col-lg-4">
                         <div class="team-member">
                             <img class="mx-auto rounded-circle" src="{% url 'serve_image' 'Member' team_member.id %}" alt="{{ team_member.name }}" />
                             <h4>{{ team_member.name }}</h4>
                             <p class="text-muted">{{ team_member.position }}</p>
-                            {% if team_member.social1 %}
-                            <a class="btn btn-dark btn-social mx-2" href="{{ team_member.social1 }}" aria-label="{{ team_member.name }} Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            {% if team_member.insta %}
+                            <a class="btn btn-dark btn-social mx-2" href="{{ team_member.insta }}" aria-label="{{ team_member.name }} Instagram Profile"><i class="fab fa-instagram"></i></a>
                             {% endif %}
-                            {% if team_member.social2 %}
-                            <a class="btn btn-dark btn-social mx-2" href="{{ team_member.social2 }}" aria-label="{{ team_member.name }} Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            {% if team_member.facebook %}
+                            <a class="btn btn-dark btn-social mx-2" href="{{ team_member.facebook }}" aria-label="{{ team_member.name }} Facebook Profile"><i class="fab fa-facebook-f"></i></a>
                             {% endif %}
-                            {% if team_member.social3 %}
-                            <a class="btn btn-dark btn-social mx-2" href="{{ team_member.social3 }}" aria-label="{{ team_member.name }} LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            {% if team_member.linkedin %}
+                            <a class="btn btn-dark btn-social mx-2" href="{{ team_member.linkedin }}" aria-label="{{ team_member.name }} LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                             {% endif %}
                         </div>
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
         </section>
        
         <!-- Contact-->
-        <section class="page-section" id="contact" style="background-image: url('{% url 'serve_image' 'Home2' home2.0.id %}');">
+        <section class="page-section" id="contact" {% if home2 %}style="background-image: url('{% url 'serve_image' 'Home2' home2.0.id %}');"{% endif %}>
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Contact Us</h2>

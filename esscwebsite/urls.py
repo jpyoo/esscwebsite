@@ -30,6 +30,7 @@ urlpatterns = [
     path('', homepage_views.home, name='home'),
     path('image/<str:model_name>/<int:image_id>/', homepage_views.serve_image, name='serve_image'),
     path('contact/', homepage_views.contact, name='contact'),
+    path('archive/', homepage_views.archive, name='archive'),
     # #auth
     # path('login/', auth_views.LoginView.as_view( template_name = 'accounts/login.html'), name='login'),
 ]

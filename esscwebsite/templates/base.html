@@ -38,7 +38,8 @@
         {% endif %}
         {% include 'navbar.html' %}
         <!-- Masthead-->
-        <header class="masthead" style="background-image: url('{% url 'serve_image' 'Home2' home2.1.id %}');">
+        
+        <header class="masthead" {% if home2 %} style="background-image: url('{% url 'serve_image' 'Home2' home2.1.id %}');" {% endif %}>
             <div class="container">
                 <div class="masthead-subheading">Welcome to UCI ESSC!</div>
                 <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>

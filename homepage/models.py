@@ -127,10 +127,12 @@ class Home3(models.Model):
 class Member(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
-    social1 = models.CharField(max_length=100, blank=True, null=True)
-    social2 = models.CharField(max_length=100, blank=True, null=True)
-    social3 = models.CharField(max_length=100, blank=True, null=True)
+    insta = models.CharField(max_length=100, blank=True, null=True)
+    linkedin = models.CharField(max_length=100, blank=True, null=True)
+    facebook = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='images/Member/', blank=True, null=True)
+    year = models.CharField(max_length=100, blank=True, null=True)
+    archive = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -154,6 +156,23 @@ class Contact(models.Model):
     
     def get_absolute_url(self):
         return reverse('contact-detail', kwargs={'pk': self.pk})
+    
+    class Meta:
+        ordering = ['-date_posted']
+
+class ArchiveBanners(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    date_posted = models.DateTimeField(auto_now_add=True )
+    last_modified = models.DateTimeField(auto_now=True)
+    author = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/Home2/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        return reverse('home-detail', kwargs={'pk': self.pk})
     
     class Meta:
         ordering = ['-date_posted']

@@ -56,7 +56,7 @@ def contact(request):
 def archive(request):
     context = {
         'members': Member.objects.all(),
-        'home2': ArchiveBanners.objects.all().order_by('-date_posted')[:3],
+        'home2': Home2.objects.all().order_by('-date_posted')[:3],
     }
     return render(request, 'archive.html', context)
 

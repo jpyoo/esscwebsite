@@ -24,7 +24,7 @@ def home(request):
         'home1': Home1.objects.all().order_by('-date_posted')[:3],
         'home2': Home2.objects.all().order_by('-date_posted')[:3],
         'home3': Home3.objects.all().order_by('-date_posted')[:3],
-        'members': Member.objects.all(),
+        'members': Member.objects.all().order_by('order'),
         'form': ContactForm(),
         # 'instagram_posts': get_instagram_posts(),
     }

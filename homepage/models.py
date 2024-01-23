@@ -127,10 +127,12 @@ class Home3(models.Model):
 class Member(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
+    pronouns = models.CharField(max_length=100, blank=True, null=True)
     insta = models.CharField(max_length=100, blank=True, null=True)
     linkedin = models.CharField(max_length=100, blank=True, null=True)
     facebook = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='images/Member/', blank=True, null=True)
+    order = models.IntegerField(blank=True, null=True)
     year = models.CharField(max_length=100, blank=True, null=True)
     archive = models.BooleanField(default=False)
 

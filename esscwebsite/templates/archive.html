@@ -19,6 +19,10 @@
                     {% if team_member.year %}
                     <p class="text-muted">{{ team_member.year }}</p>
                     {% endif %}
+                    {% if team_member.pronouns %}
+                    <!-- show pronouns-->
+                    <p class="text-muted">{{ team_member.pronouns }}</p>
+                    {% endif %}
                     {% if team_member.insta %}
                     <a class="btn btn-dark btn-social mx-2" href="{{ team_member.insta }}" aria-label="{{ team_member.name }} Instagram Profile"><i class="fab fa-twitter"></i></a>
                     {% endif %}

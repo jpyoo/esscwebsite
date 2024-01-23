@@ -159,20 +159,3 @@ class Contact(models.Model):
     
     class Meta:
         ordering = ['-date_posted']
-
-class ArchiveBanners(models.Model):
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-    date_posted = models.DateTimeField(auto_now_add=True )
-    last_modified = models.DateTimeField(auto_now=True)
-    author = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='images/Home2/', blank=True, null=True)
-
-    def __str__(self):
-        return self.title
-    
-    def get_absolute_url(self):
-        return reverse('home-detail', kwargs={'pk': self.pk})
-    
-    class Meta:
-        ordering = ['-date_posted']

@@ -1,13 +1,13 @@
 import requests
 from .models import InstagramPost
 import time
-    
+import os
+
 def get_instagram_posts():
     api_version = 'v19.0'
-    access_token = 'IGQWRNd0FBUHBXeU4ycGtYMjI4VHNwMzVQLTdlQXBwTVNVY21CVFZAoM2JMeGtyRVc3OUV1TEF6NmtMWVJLcEllUzkzeWxoVVhLalI2QlFZAMTFZAcVBOZAjJhNmxXamRhWlVsdTA0MlpuNnZA0SUR6WEhTanBvSFJXc0UZD'
-    user_id = '6898103826982187'
+    access_token = os.environ.get('INSTAGRAM_ACCESS_TOKEN')
+    user_id = os.environ.get('INSTAGRAM_USER_ID')
     fields = 'id,media_type,media_url,caption,timestamp,username'
-    # api_url = f'https://graph.instagram.com/{api_version}/{user_id}/media?access_token={access_token}'
     api_url = f'https://graph.instagram.com/{api_version}/{user_id}/media?fields={fields}&access_token={access_token}'
 
 

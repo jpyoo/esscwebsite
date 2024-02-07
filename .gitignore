@@ -1,0 +1,5 @@
+static_root/
+*.env
+*.log
+*.pyc
+

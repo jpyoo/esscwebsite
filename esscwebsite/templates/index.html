@@ -1,25 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '713894050691732',
-        xfbml      : true,
-        version    : 'v18.0'
-      });
-      FB.AppEvents.logPageView();
-    };
-  
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-</script>
-
         <!-- Services with Slideshow -->
 <section class="page-section" id="services">
     <div class="container">
@@ -58,6 +39,26 @@
         </div>
     </div>
 </section>
+
+<!-- Instagram Posts -->
+<section class="page-section" id="instagram-posts">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Instagram Posts</h2>
+        </div>
+        <div class="row" id="instagram-posts-container">
+            {% for post in instagram_posts %}
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <div class="instagram-post">
+                    <img src="{{ post.thumbnail_url }}" alt="Instagram Post" class="img-fluid">
+                    <p>{{ post.caption }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
         <!-- Events Grid-->
         <section class="page-section bg-light" id="events">
             <div class="container">

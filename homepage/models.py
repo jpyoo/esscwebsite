@@ -161,3 +161,11 @@ class Contact(models.Model):
     
     class Meta:
         ordering = ['-date_posted']
+
+
+class InstagramPost(models.Model):
+    thumbnail_url = models.URLField(max_length=500, blank=True, default='')
+    caption = models.TextField()
+
+    def __str__(self):
+        return self.caption

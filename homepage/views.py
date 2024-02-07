@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post, Event, Announcement, About, Home1, Home2, Home3, Member, ArchiveBanners
+from .models import Post, Event, Announcement, About, Home1, Home2, Home3, Member
 from django.http import HttpResponse
 from django.apps import apps
 from django.http import Http404
@@ -26,7 +26,7 @@ def home(request):
         'home3': Home3.objects.all().order_by('-date_posted')[:3],
         'members': Member.objects.all().order_by('order'),
         'form': ContactForm(),
-        # 'instagram_posts': get_instagram_posts(),
+        'instagram_posts': get_instagram_posts(),
     }
 
     if request.method == 'POST':

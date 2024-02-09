@@ -164,7 +164,7 @@ class Contact(models.Model):
 
 
 class InstagramPost(models.Model):
-    thumbnail_url = models.URLField(max_length=500, blank=True, default='')
+    thumbnail_url = models.URLField(max_length=5000, blank=True, default='')
     caption = models.TextField()
 
     def __str__(self):

@@ -19,6 +19,8 @@ ADD . .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -q -r ./requirements/prod.txt
 
+RUN pip install djangorestframework django-cors-headers
+
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
 

@@ -5,7 +5,9 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-dotenv_path = Path('../esscwebsite/.env')
+BASE_DIR = Path(__file__).resolve().parent.parent
+dotenv_path = os.path.join(BASE_DIR, '/esscwebsite/.env')
+
 load_dotenv(dotenv_path=dotenv_path)
 
 def get_instagram_posts():
@@ -30,13 +32,12 @@ def get_instagram_posts():
             continue
 
     data = response.json()
-    print('data:', data)
     posts = []
-        
-    for post in data.get('data', []):
+    for i in range(min(len(data.get('data', [])),6)):
+        post = data['data'][i]
         thumbnail_url = post.get('media_url', '')
         caption = post.get('caption', '')
-        print('caption:', caption)
+        # print('caption:', caption)
         instagram_post = InstagramPost.objects.create(thumbnail_url=thumbnail_url, caption=caption)
         posts.append(instagram_post)
 

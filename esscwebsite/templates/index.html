@@ -40,21 +40,35 @@
     </div>
 </section>
 
+{% comment %} <!-- Instagram Posts -->
+<div id="instagram-posts-root"></div>
+<script src="{% static 'js/InstagramPosts.js' %}"></script>
+<script>
+  const instagramPostsData = JSON.parse('{{ instagram_posts | escapejs }}');
+  ReactDOM.render(
+    <InstagramPosts posts={instagramPostsData} />,
+    document.getElementById('instagram-posts-root')
+  );
+</script> {% endcomment %}
+
 <!-- Instagram Posts -->
 <section class="page-section" id="instagram-posts">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">Instagram Posts</h2>
+            <h2 class="insta-heading section-heading">Instagram <i class="fab fa-instagram"></i></h2>
         </div>
         <div class="row" id="instagram-posts-container">
             {% for post in instagram_posts %}
             <div class="col-lg-4 col-sm-6 mb-4">
                 <div class="instagram-post">
                     <img src="{{ post.thumbnail_url }}" alt="Instagram Post" class="img-fluid">
-                    <p>{{ post.caption }}</p>
+                    <p class="caption">{{ post.caption }}</p>
                 </div>
             </div>
             {% endfor %}
+        </div>
+        <div>
+            More Posts <a class="btn btn-dark btn-social mx-2" target="_blank" href="https://www.instagram.com/essclubatuci/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
 </section>

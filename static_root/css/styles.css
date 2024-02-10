@@ -11323,3 +11323,47 @@ section#contact form#contactForm :-ms-input-placeholder {
 .event-image:hover {
   opacity: 0.3; /* Reduce opacity when hovered */
 }
+
+.instagram-post {
+  position: relative;
+  border: 1px solid #ccc; /* Add border to resemble Instagram post */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  overflow: hidden; /* Hide overflow content */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+.instagram-post img {
+  width: 100%; /* Make image fill its container */
+  height: auto; /* Maintain aspect ratio */
+  transition: transform 0.3s ease; /* Add transition effect on hover */
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  top: 10;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  overflow: hidden; /* Hide overflowed text */
+  text-overflow: ellipsis; /* Add ellipsis to cut off long text */
+  max-height: 90%; /* Limit max height to the parent height */
+}
+
+.instagram-post:hover .caption {
+  opacity: 1;
+}
+
+.instagram-post:hover img {
+  transform: scale(1.05); /* Enlarge image on hover */
+}
+
+.insta-heading{
+  font-family: 'Billabong', cursive; /* Use Billabong font */
+  font-size: 2.5rem; /* Adjust font size as needed */
+  letter-spacing: 2px; /* Add letter spacing for better readability */
+}
